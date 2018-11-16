@@ -164,6 +164,8 @@ n = c(50,100,500,1000)
 
 ##########################Parte a ###############################
 
+Generar un loop con el cual se recorre la lista con los tamaños de la muestra, para posteriormente calcular los valores dependiendo de los betas para el total de repeticiones.
+
 ```{r}
 for (j in 1:length(n)) {
   
@@ -181,7 +183,8 @@ for (j in 1:length(n)) {
 
 
 
-media
+***Media de los betas***
+
 ```{r}
 mean(betas[,1])
 mean(betas[,2])
@@ -189,7 +192,7 @@ mean(betas[,3])
 mean(betas[,4])
 ```
 
-varianza
+***varianza de los betas***
 
 ```{r}
 var(betas[,1])
@@ -217,36 +220,36 @@ d4 <- data.frame(muestra_1000=muestra_1000, f4=dnorm(muestra_1000, mean(betas[,4
 
 
 
-Graficos
+***Graficos***
 
 ```{r}
 g1 <- data.frame(B1=betas[,1]) %>% ggplot(aes(betas[,1], ..density..)) + 
-  geom_histogram(color ="green", bins = 30) + 
   geom_line(data = d1, mapping = aes(muestra_50,f1), color = "red") +
-  ggtitle("n=50") + xlab(expression(hat(beta)[1])) +
+  geom_histogram(color ="green", bins = 30) +
+  ggtitle("n=50") + xlab("Beta 1") +
   theme_bw()
 
 g1
 
 g2 <- data.frame(B2=betas[,2]) %>% ggplot(aes(betas[,2], ..density..)) + 
-  geom_histogram(color ="red", bins =30) + 
   geom_line(data = d2, mapping = aes(muestra_100,f2), color = "red") +
-  ggtitle("n=100") + xlab(expression(hat(beta)[1])) +  
+  geom_histogram(color ="red", bins =30) + 
+  ggtitle("n=100") + xlab("Beta 1") +  
   theme_bw()
 g2
 
 g3 <- data.frame(B3=betas[,3]) %>% ggplot(aes(betas[,3], ..density..)) + 
-  geom_histogram(color ="blue", bins = 30) + 
   geom_line(data = d3, mapping = aes(muestra_500,f3), color = "red") +
-  ggtitle("n=500") + xlab(expression(hat(beta)[1])) +  
+  geom_histogram(color ="blue", bins = 30) + 
+  ggtitle("n=500") + xlab("Beta 1") +  
   theme_bw()
 
 g3
 
 g4 <- data.frame(B4=betas[,4]) %>% ggplot(aes(betas[,4], ..density..)) + 
-  geom_histogram(color ="yellow", bins = 30) + 
   geom_line(data = d4, mapping = aes(muestra_1000 ,f4), color = "red") +
-  ggtitle("n=1000") + xlab(expression(hat(beta)[1])) + 
+  geom_histogram(color ="yellow", bins = 30) + 
+  ggtitle("n=1000") + xlab("Beta 1") + 
   theme_bw()
 
 g4
@@ -289,7 +292,8 @@ for (j in 1:length(n)) {
 
 
 
-media
+***Media de los beta***
+
 ```{r}
 mean(betas[,1])
 mean(betas[,2])
@@ -297,7 +301,7 @@ mean(betas[,3])
 mean(betas[,4])
 ```
 
-varianza
+***Varianza de los betas***
 
 ```{r}
 var(betas[,1])
@@ -324,32 +328,32 @@ muestra_1000 <- seq(min(betas[,4]), max(betas[,4]), length = repeticiones)
 d4 <- data.frame(muestra_1000=muestra_1000, f4=dnorm(muestra_1000, mean(betas[,4]), sd(betas[,4])))
 
 g1 <- data.frame(B1=betas[,1]) %>% ggplot(aes(betas[,1], ..density..)) + 
-  geom_histogram(color ="green", bins = 30) + 
   geom_line(data = d1, mapping = aes(muestra_50,f1), color = "red") +
-  ggtitle("n=50") + xlab(expression(hat(beta)[1])) +
+  geom_histogram(color ="green", bins = 30) + 
+  ggtitle("n=50") + xlab("Beta 1") +
   theme_bw()
 
 g1
 
 g2 <- data.frame(B2=betas[,2]) %>% ggplot(aes(betas[,2], ..density..)) + 
-  geom_histogram(color ="red", bins =30) + 
   geom_line(data = d2, mapping = aes(muestra_100,f2), color = "red") +
-  ggtitle("n=100") + xlab(expression(hat(beta)[1])) +  
+  geom_histogram(color ="red", bins =30) + 
+  ggtitle("n=100") + xlab("Beta 1") +  
   theme_bw()
 g2
 
 g3 <- data.frame(B3=betas[,3]) %>% ggplot(aes(betas[,3], ..density..)) + 
-  geom_histogram(color ="blue", bins = 30) + 
   geom_line(data = d3, mapping = aes(muestra_500,f3), color = "red") +
-  ggtitle("n=500") + xlab(expression(hat(beta)[1])) +  
+  geom_histogram(color ="blue", bins = 30) + 
+  ggtitle("n=500") + xlab("Beta 1") +  
   theme_bw()
 
 g3
 
 g4 <- data.frame(B4=betas[,4]) %>% ggplot(aes(betas[,4], ..density..)) + 
-  geom_histogram(color ="yellow", bins = 30) + 
   geom_line(data = d4, mapping = aes(muestra_1000,f4), color = "red") +
-  ggtitle("n=1000") + xlab(expression(hat(beta)[1])) + 
+  geom_histogram(color ="yellow", bins = 30) + 
+  ggtitle("n=1000") + xlab("Beta 1") + 
   theme_bw()
 
 g4
