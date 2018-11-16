@@ -219,7 +219,6 @@ d4 <- data.frame(muestra_1000=muestra_1000, f4=dnorm(muestra_1000, mean(betas[,4
 ```
 
 
-
 ***Graficos***
 
 ```{r}
