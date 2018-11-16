@@ -148,6 +148,222 @@ retorno(AAPL)
 
 #PREGUNTA 3
 
+```{r}
+library(ggplot2)
+library(dplyr)
+library(gridExtra)
+```
+
+
+```{r}
+repeticiones = 10000
+betas = matrix(NA, nrow = repeticiones, ncol = 4)
+
+beta0 = 2
+beta1 = 2.5
+beta2=1
+
+n = c(50,100,500,1000) 
+```
+
+
+
+##########################Parte a ###############################
+
+```{r}
+for (j in 1:length(n)) {
+  
+  X = rnorm(n[j], 1, 20)
+  
+  for (i in 1:repeticiones) {
+    v = rnorm(n[j], 0, 1) + beta2*X
+    Y = beta0 + beta1*X + v 
+    model = lm(Y~X)  
+    betas[i,j] = model$coef[2]
+  }
+}
+
+```
+
+
+
+media
+```{r}
+mean(betas[,1])
+mean(betas[,2])
+mean(betas[,3])
+mean(betas[,4])
+```
+
+varianza
+
+```{r}
+var(betas[,1])
+var(betas[,2])
+var(betas[,3])
+var(betas[,4])
+```
+
+
+############################# Parte b ##############################
+
+```{r}
+muestra_50 <- seq(min(betas[,1]), max(betas[,1]), length = repeticiones) 
+d1 <- data.frame(muestra_50=muestra_50, f1=dnorm(muestra_50, mean(betas[,1]), sd(betas[,1])))
+
+muestra_100 <- seq(min(betas[,2]), max(betas[,2]), length = repeticiones) 
+d2 <- data.frame(muestra_100=muestra_100, f2=dnorm(muestra_100, mean(betas[,2]), sd(betas[,2])))
+
+muestra_500 <- seq(min(betas[,3]), max(betas[,3]), length = repeticiones) 
+d3 <- data.frame(muestra_500=muestra_500, f3=dnorm(muestra_500, mean(betas[,3]), sd(betas[,3])))
+
+muestra_1000 <- seq(min(betas[,4]), max(betas[,4]), length = repeticiones) 
+d4 <- data.frame(muestra_1000=muestra_1000, f4=dnorm(muestra_1000, mean(betas[,4]), sd(betas[,4])))
+```
+
+
+
+Graficos
+
+```{r}
+g1 <- data.frame(B1=betas[,1]) %>% ggplot(aes(betas[,1], ..density..)) + 
+  geom_histogram(color ="green", bins = 30) + 
+  geom_line(data = d1, mapping = aes(muestra_50,f1), color = "red") +
+  ggtitle("n=50") + xlab(expression(hat(beta)[1])) +
+  theme_bw()
+
+g1
+
+g2 <- data.frame(B2=betas[,2]) %>% ggplot(aes(betas[,2], ..density..)) + 
+  geom_histogram(color ="red", bins =30) + 
+  geom_line(data = d2, mapping = aes(muestra_100,f2), color = "red") +
+  ggtitle("n=100") + xlab(expression(hat(beta)[1])) +  
+  theme_bw()
+g2
+
+g3 <- data.frame(B3=betas[,3]) %>% ggplot(aes(betas[,3], ..density..)) + 
+  geom_histogram(color ="blue", bins = 30) + 
+  geom_line(data = d3, mapping = aes(muestra_500,f3), color = "red") +
+  ggtitle("n=500") + xlab(expression(hat(beta)[1])) +  
+  theme_bw()
+
+g3
+
+g4 <- data.frame(B4=betas[,4]) %>% ggplot(aes(betas[,4], ..density..)) + 
+  geom_histogram(color ="yellow", bins = 30) + 
+  geom_line(data = d4, mapping = aes(muestra_1000 ,f4), color = "red") +
+  ggtitle("n=1000") + xlab(expression(hat(beta)[1])) + 
+  theme_bw()
+
+g4
+
+grid.arrange(g1, g2, g3, g4, nrow=2, ncol=2)
+```
+
+
+
+
+
+########################Parte c #######################################
+
+```{r}
+repeticiones = 10000
+betas = matrix(NA, nrow = repeticiones, ncol = 4)
+
+beta0 = 2
+beta1 = 2.5
+beta2=1
+
+n = c(50,100,500,1000) 
+```
+
+ 
+ 
+```{r}
+for (j in 1:length(n)) {
+  
+  X = rnorm(n[j], 1, 20)
+  
+  for (i in 1:repeticiones) {
+    x2 = runif(n[j], 0, 1)*beta2 
+    Y = beta0 + beta1*X + x2 +rnorm(n[j], 0,1)
+    model = lm(Y~X)  
+    betas[i,j] = model$coef[2]
+  }
+}
+```
+
+
+
+media
+```{r}
+mean(betas[,1])
+mean(betas[,2])
+mean(betas[,3])
+mean(betas[,4])
+```
+
+varianza
+
+```{r}
+var(betas[,1])
+var(betas[,2])
+var(betas[,3])
+var(betas[,4])
+```
+
+
+############################# Parte b ##############################
+
+
+```{r}
+muestra_50 <- seq(min(betas[,1]), max(betas[,1]), length = repeticiones) 
+d1 <- data.frame(muestra_50=muestra_50, f1=dnorm(muestra_50, mean(betas[,1]), sd(betas[,1])))
+
+muestra_100 <- seq(min(betas[,2]), max(betas[,2]), length = repeticiones) 
+d2 <- data.frame(muestra_100=muestra_100, f2=dnorm(muestra_100, mean(betas[,2]), sd(betas[,2])))
+
+muestra_500 <- seq(min(betas[,3]), max(betas[,3]), length = repeticiones) 
+d3 <- data.frame(muestra_500=muestra_500, f3=dnorm(muestra_500, mean(betas[,3]), sd(betas[,3])))
+
+muestra_1000 <- seq(min(betas[,4]), max(betas[,4]), length = repeticiones) 
+d4 <- data.frame(muestra_1000=muestra_1000, f4=dnorm(muestra_1000, mean(betas[,4]), sd(betas[,4])))
+
+g1 <- data.frame(B1=betas[,1]) %>% ggplot(aes(betas[,1], ..density..)) + 
+  geom_histogram(color ="green", bins = 30) + 
+  geom_line(data = d1, mapping = aes(muestra_50,f1), color = "red") +
+  ggtitle("n=50") + xlab(expression(hat(beta)[1])) +
+  theme_bw()
+
+g1
+
+g2 <- data.frame(B2=betas[,2]) %>% ggplot(aes(betas[,2], ..density..)) + 
+  geom_histogram(color ="red", bins =30) + 
+  geom_line(data = d2, mapping = aes(muestra_100,f2), color = "red") +
+  ggtitle("n=100") + xlab(expression(hat(beta)[1])) +  
+  theme_bw()
+g2
+
+g3 <- data.frame(B3=betas[,3]) %>% ggplot(aes(betas[,3], ..density..)) + 
+  geom_histogram(color ="blue", bins = 30) + 
+  geom_line(data = d3, mapping = aes(muestra_500,f3), color = "red") +
+  ggtitle("n=500") + xlab(expression(hat(beta)[1])) +  
+  theme_bw()
+
+g3
+
+g4 <- data.frame(B4=betas[,4]) %>% ggplot(aes(betas[,4], ..density..)) + 
+  geom_histogram(color ="yellow", bins = 30) + 
+  geom_line(data = d4, mapping = aes(muestra_1000,f4), color = "red") +
+  ggtitle("n=1000") + xlab(expression(hat(beta)[1])) + 
+  theme_bw()
+
+g4
+
+grid.arrange(g1, g2, g3, g4, nrow=2, ncol=2)
+```
+
+
 
 
 
