@@ -3,7 +3,7 @@ title: "Tarea-5-R-UChile-Mendez"
 output: html_document
 ---
 
-##Prengunta 2
+#Prengunta 2
 
 ```{r}
 library(quantmod)
@@ -145,6 +145,10 @@ retorno <- function(data) {
 retorno(AAPL)
 
 ```
+
+#PREGUNTA 3
+
+
 
 
 
