@@ -5,6 +5,8 @@ output: html_document
 
 #Prengunta 2
 
+Cargar las librerias, fechas de corte y las bases con las acciones.
+
 ```{r}
 library(quantmod)
 library(gridExtra)
@@ -17,7 +19,7 @@ getSymbols("AAPL", src = "yahoo", from = start, to = end, periodicity = "monthly
 
 ```
 
-##MODIFICAR EL NOMBRE DE LAS COLUMNAS PARA FACILITAR SU CALCULO
+MODIFICAR EL NOMBRE DE LAS COLUMNAS PARA FACILITAR SU CALCULO
 
 ```{r}
 colnames(MSFT)[1] <- "Open"
@@ -36,8 +38,8 @@ colnames(AAPL)[6] <- "Adjusted"
 ```
 
 
-###############################
-##Retorno
+
+## Función de retorno 
 
 ```{r}
 retorno <- function(data) {
@@ -54,16 +56,8 @@ retorno <- function(data) {
 retorno(MSFT)
 ```
 
-#################################
 
-##Graficar los retornos
-
-```{r}
-plot(retorno(MSFT), col = "purple", lwd = 2, ylab = "Return",
-     main = "Retornos")
-```
-
-##################################
+Calcular el retorno junto con el calculo de Jarque-Bera
 
 
 ```{r}
